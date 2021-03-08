@@ -8,6 +8,7 @@ title = "社区讨论存档"
 [output.html]
 git-repository-url = "https://github.com/dpdk-dev/dpdk-dev.github.io.src"
 git-repository-icon = "fa-github"
+cname = "www.dpdk.tech"
 
 [output.html.playpen]
 editable = true
