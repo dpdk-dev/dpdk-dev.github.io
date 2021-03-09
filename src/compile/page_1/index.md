@@ -67,7 +67,7 @@ After main
 
 发现问题了，静态链接的foo.c里面的 \_\_attribute\_\_((constructor)) 并没有执行。动态链接后是正确的。
 
-原因是linker在静态链接的时候，默认只链接用到的符号，没有用到的就不会拿过来了。对于上面的这种情况，\_\_attribute\_\_((constructor)) 属性的模块构造器就被strip了。
+原因是linker在静态链接的时候，默认只链接用到的符号，没有用到的就不会拿过来了。对于上面的这种情况，\_\_attribute\_\_((constructor))属性的模块构造器就被strip了。
 
 解决办法是使用-Wl,--whole-archive和--no-whole-archive标签，显式的标识链接所有的符号。
 
