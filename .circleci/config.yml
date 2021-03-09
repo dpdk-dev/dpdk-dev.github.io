@@ -14,5 +14,6 @@ jobs:
             git clone -b gh_pages git@github.com:dpdk-dev/dpdk-dev.github.io.git 6666circle_ci_deploy
             cp -a book/* 6666circle_ci_deploy/
             cd 6666circle_ci_deploy
+            git add ./
             git commit -m "ci push"
             git push 
