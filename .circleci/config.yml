@@ -25,4 +25,4 @@ workflows:
           filters:
             branches:
               only:
-                - master1
+                - master
