@@ -23,7 +23,7 @@ lib/event/reactor.c: 685:spdk_reactors_init: ERROR: spdk_event_mempool creation 
 经过试验发现，原来，问题出在静态库上。
 
 ```
-$ cat foo.c 
+$ cat foo.c
 #include <stdio.h>
 
 __attribute__((constructor)) void foo()
