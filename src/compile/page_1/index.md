@@ -43,9 +43,9 @@ int main(int argc, char **argv) {
    return 0;
 }
  $ gcc -c foo.c
- $ ar rcs foo.a foo.o 
+ $ ar rcs foo.a foo.o
  $ gcc test.c foo.a
- $ ./a.out 
+ $ ./a.out
 Before main
 In main
 After main
@@ -55,9 +55,9 @@ After main
 
 ```
 $ g++ -c foo.c -o foo.o -fPIC
-$ g++ -shared -fPIC -o libfoo.so foo.o                                                                                                                                                                         1 ↵
-$ g++ test.c -L. -lfoo                
-$ export LD_LIBRARY_PATH=`pwd`                                                                                                                                                                               127 ↵
+$ g++ -shared -fPIC -o libfoo.so foo.o
+$ g++ test.c -L. -lfoo
+$ export LD_LIBRARY_PATH=`pwd`
 $ ./a.out                     
 foo called
 Before main
