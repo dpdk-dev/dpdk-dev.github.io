@@ -14,7 +14,7 @@
 lib/event/reactor.c: 685:spdk_reactors_init: ERROR: spdk_event_mempool creation failed
 ```
 
-根据反馈看，应该是 __attribute__ ((constructor)) 的问题。
+根据反馈看，应该是 \_\_attribute\_\_ ((constructor)) 的问题。
 
 经过在初始化路径上加上日志，发现就是这个问题。但是，为什么会这样呢？
 
@@ -65,9 +65,9 @@ In main
 After main
 ```
 
-发现问题了，静态链接的 foo.c 里面的 __attribute__((constructor)) 并没有执行。动态链接后是正确的。
+发现问题了，静态链接的 foo.c 里面的 \_\_attribute\_\_((constructor)) 并没有执行。动态链接后是正确的。
 
-原因是linker在静态链接的时候，默认只链接用到的符号，没有用到的就不会拿过来了。对于上面的这种情况，__attribute__((constructor)) 属性的模块构造器就被 strip 了。
+原因是linker在静态链接的时候，默认只链接用到的符号，没有用到的就不会拿过来了。对于上面的这种情况，\_\_attribute\_\_((constructor)) 属性的模块构造器就被 strip 了。
 
 解决办法是使用-Wl,--whole-archive 和 --no-whole-archive 标签，显式的标识链接所有的符号。
 
