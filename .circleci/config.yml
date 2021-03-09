@@ -16,7 +16,7 @@ jobs:
             cd 6666circle_ci_deploy
             git add ./
             git commit -m "ci push"
-            git push 
+            git push --force
 workflows:
   version: 2
   build-deploy:
