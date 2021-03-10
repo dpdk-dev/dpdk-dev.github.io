@@ -13,16 +13,17 @@ jobs:
             git config --global user.name $GH_NAME
             mkdir 6666circle_ci_deploy
             cd 6666circle_ci_deploy
-            git clone -b gh_pages git@github.com:dpdk-dev/dpdk-dev.github.io.git
-            mv dpdk-dev.github.io/.git ./
-            rm -rf dpdk-dev.github.io/*
-            mv .git dpdk-dev.github.io/
+            mkdir dpdk-dev.github.io
+            cd dpdk-dev.github.io
+            git init
+            git remote add origin git@github.com:dpdk-dev/dpdk-dev.github.io.git
+            cd ..
             cp -a ../.circleci dpdk-dev.github.io/
             cp -a ../book/* dpdk-dev.github.io/
             cd dpdk-dev.github.io
             git add ./
             git commit -m "ci push"
-            git push --force
+            git push origin master:gh_pages --force
 workflows:
   version: 2
   build-deploy:
