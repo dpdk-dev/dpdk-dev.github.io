@@ -11,9 +11,15 @@ jobs:
           command: |
             git config --global user.email $GH_EMAIL
             git config --global user.name $GH_NAME
-            git clone -b gh_pages git@github.com:dpdk-dev/dpdk-dev.github.io.git 6666circle_ci_deploy
-            cp -a book/* 6666circle_ci_deploy/
+            mkdir 6666circle_ci_deploy
             cd 6666circle_ci_deploy
+            git clone -b gh_pages git@github.com:dpdk-dev/dpdk-dev.github.io.git
+            mv dpdk-dev.github.io/.git ./
+            rm -rf dpdk-dev.github.io/*
+            mv .git dpdk-dev.github.io/
+            cp -a ../.circleci dpdk-dev.github.io/
+            cp -a ../book/* dpdk-dev.github.io/
+            cd dpdk-dev.github.io
             git add ./
             git commit -m "ci push"
             git push --force
