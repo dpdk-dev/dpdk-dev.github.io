@@ -1,0 +1,35 @@
+version: 2.1
+jobs:
+  build:
+    docker: 
+      - image: dbuildrobot/mdbook-ci:0.4.7 # the primary container, where your job's commands are run
+
+    steps:
+      - checkout # check out the code in the project directory
+      - run: mdbook build
+      - deploy:
+          command: |
+            git config --global user.email $GH_EMAIL
+            git config --global user.name $GH_NAME
+            mkdir 6666circle_ci_deploy
+            cd 6666circle_ci_deploy
+            mkdir dpdk-dev.github.io
+            cd dpdk-dev.github.io
+            git init
+            git remote add origin git@github.com:dpdk-dev/dpdk-dev.github.io.git
+            cd ..
+            cp -a ../.circleci dpdk-dev.github.io/
+            cp -a ../book/* dpdk-dev.github.io/
+            cd dpdk-dev.github.io
+            git add ./
+            git commit -m "ci push"
+            git push origin master:gh_pages --force
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only:
+                - master
